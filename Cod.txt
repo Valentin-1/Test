@@ -1,0 +1,56 @@
+class LaptopSpider(scrapy.Spider):
+    name = "laptop"
+    allowed_domains = ["www.fantastic.md"]
+    start_urls = [
+        "https://www.fantastic.md/ro/category/laptop-uri/laptop-uri/767",
+    ]
+
+from scrapy import item
+def parse(self, response):
+        # Obțineți dimensiunea ecranului din URL
+        screen_size = response.url.split("/")[-2]
+
+        # Obțineți producătorul din numele produsului
+        manufacturer = response.xpath("//div[@class='Content_Goods_TitleBlock']/a/text()").get()
+
+        # Obțineți prețul minim din pagina de produs
+        price_min = response.xpath("//span[@class='Content_Goods_PriceBlock_Value_lei']/text()").get()
+# Verificați dacă dimensiunea ecranului, producătorul și prețul minim corespund criteriilor de căutare
+#if screen_size == self.settings.get("SCREEN_SIZE") and manufacturer == self.settings.get("MANUFACTURER") and price_min >= self.settings.get("PRICE_MIN"):
+            # Extrageți linkul la produs
+        link = response.xpath("//a[@id='siT_333063']/@href").get()
+
+            # Creați un obiect Laptop cu datele extrase
+        laptop = Laptop(
+                        screen_size=screen_size,
+                        manufacturer=manufacturer,
+                        price_min=price_min,
+                        link=link,
+                    )
+
+            # Returnați obiectul Laptop
+        yield laptop
+
+class Laptop(scrapy.Item):
+    screen_size = scrapy.Field()
+    manufacturer = scrapy.Field()
+    price_min = scrapy.Field()
+    link = scrapy.Field()
+
+SCREEN_SIZE = "Diverse AccExpert Privacy Filter for Laptop 15.6"
+MANUFACTURER = "Diverse AccExpert Privacy Filter for Laptop 15.6"
+PRICE_MIN = 989
+
+class LaptopPipeline(scrapy.Item):
+    def process_item(self, item, spider):
+        # Convertiți obiectul Laptop într-un obiect JSON
+        data = json.dumps(item)
+
+        # Scrieți datele în fișierul `laptops.json`
+        with open("laptops.json", "a") as f:
+            f.write(data + "\n")
+
+        return item
+        
+    scrapy crawl laptop
+
