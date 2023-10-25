@@ -56,4 +56,8 @@ class LaptopPipeline(scrapy.Item):
 
 asdfhbadsjhfgjahsdgfjhadgfadfgasgdhfjadfgafayudfgajydgfauyegfuwegf
 
-
+class NewBranch(scrapy.Item):
+    screen_size = scrapy.Field()
+    manufacturer = scrapy.Field()
+    price_min = scrapy.Field()
+    link = scrapy.Field()
