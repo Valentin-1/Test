@@ -1,0 +1,1 @@
+git checkout -b subbranch_of_b1 branch1
