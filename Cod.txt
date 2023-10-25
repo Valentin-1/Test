@@ -56,9 +56,19 @@ class LaptopPipeline(scrapy.Item):
 
 asdfhbadsjhfgjahsdgfjhadgfadfgasgdhfjadfgafayudfgajydgfauyegfuwegf
 
+<<<<<<< HEAD
 1232453547647868099036525635
 
 class Test(scrapy.Item):
     def process_item(self, item, spider):
         # Convertiți obiectul Laptop într-un obiect JSON
         data = json.dumps(item)
+=======
+class NewBranch(scrapy.Item):
+    screen_size = scra
+
+
+
+
+
+
