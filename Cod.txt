@@ -61,3 +61,11 @@ class NewBranch(scrapy.Item):
     manufacturer = scrapy.Field()
     price_min = scrapy.Field()
     link = scrapy.Field()
+
+
+
+class branchTest(scrapy.Item):
+    screen_size = scrapy.Field()
+    manufacturer = scrapy.Field()
+    price_min = scrapy.Field()
+    link = scrapy.Field()
